@@ -31,43 +31,6 @@
 	unsigned short maxSvar = 0;
 
 
-	void recivedata() {
-		char recivestr[100];
-		ReciveData(port, recivestr, 100);
-		string string1(recivestr);
-		if (string1.substr(0, 2) == "TV") {
-			int tabpos = string1.find(":", 3);
-			int triggindex = atoi(string1.substr(3, tabpos).c_str());
-			bool triggstate = atoi(string1.substr(tabpos + 1).c_str());
-			trigger[triggindex] = triggstate;
-			cout << triggindex << endl;
-			cout << triggstate << endl;
-		}
-
-		if (string1.substr(0, 2) == "LV") {
-			int tabpos = string1.find(":", 3);
-			int varindex = atoi(string1.substr(3, tabpos).c_str());
-			float varstate = atof(string1.substr(tabpos + 1).c_str());
-			valsave[varindex][0] = varstate;
-			valsave[varindex][1] = 1;
-		}
-
-		if (string1.substr(0, 2) == "SL") {
-			int varindex = atoi(string1.substr(3).c_str());
-			SendData(port, ("SV:" + to_string(varindex) + ":" + to_string(sysval[varindex]) + '\n').c_str());
-		}
-
-		if (string1 == "REFRESH") {
-			for (int x = 0; x < maxStvar; x++) {
-				SendData(port, ("$V:" + to_string(x) + ":" + strval[x] + '\n').c_str());
-			}
-			for (int x = 0; x < maxLvar; x++) {
-				SendData(port, ("LV:" + to_string(x) + ":" + to_string(val[x]) + '\n').c_str());
-			}
-		}
-	}
-
-
 	void czekaj(int iMilisekundy)
 	{
 		clock_t koniec = clock() + iMilisekundy * CLOCKS_PER_SEC / 1000.0;
@@ -77,6 +40,8 @@
 
 	DWORD WINAPI MainThread(LPVOID lpParam)
 	{
+		SendData(port, ("START:" + to_string(47) + ":" + to_string(11) + '\n').c_str());
+
 		while (!abortthread) {
 			for (int x = 0; x <= maxLvar; x++) {
 				if (strval[x] != prevstrval[x]) {
@@ -91,7 +56,7 @@
 					prevval[x] = val[x];
 				}
 			}
-			recivedata();
+			
 		}
 		return(0);
 	}
@@ -123,6 +88,9 @@
 	{
 		//AllocConsole();
 		//freopen("CONOUT$", "w", stdout);
+
+		// int msgbox = MessageBox(0, "PluginStart", "Debug", MB_OK);
+
 		loadconfigfile();
 		cout << serialport << endl;
 		if (serialport != 0) {
@@ -144,7 +112,7 @@
 			*write = 1;
 			*value = valsave[varindex][0];
 		}
-			val[varindex] = (float)*value;
+			val[varindex] = round( (float)*value);
 			//*write = 0;
 	}
 
