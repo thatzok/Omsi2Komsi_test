@@ -65,11 +65,10 @@
 	void loadconfigfile() {
 		CSimpleIniA ini;
 		ini.SetUnicode();
-		SI_Error rc = ini.LoadFile(".\\plugins\\BBI2.opl");
+		SI_Error rc = ini.LoadFile(".\\plugins\\Omsi2Komsi.opl");
 		if (rc >= 0) {
-			serialport = atoi(ini.GetValue("BBI", "COMx"));
-			baudrate = atoi(ini.GetValue("BBI", "BAUD_RATE"));
-			//sl_autosend = atoi(ini.GetValue("BBI", "SL_AUTOSEND"));
+			serialport = atoi(ini.GetValue("omsi2komsi", "COMx"));
+			baudrate = atoi(ini.GetValue("omsikomsi", "BAUD_RATE"));
 		}
 
 
