@@ -1,12 +1,12 @@
 ﻿
 #include "pch.h"
-#include "CSerialPort/CSerialPort.h"
-#include "CSerialPort/CSerialPort.c"
-#include "SimpleIni/SimpleIni.h"
-#include "SimpleIni/ConvertUTF.h"
-#include "Wchar_conv/Wchar_conv.h"
-#include "Wchar_conv/Wchar_conv.cpp"
-#include "timercpp.h"
+#include "include/CSerialPort/CSerialPort.h"
+#include "include/CSerialPort/CSerialPort.c"
+#include "include/SimpleIni/SimpleIni.h"
+#include "include/SimpleIni/ConvertUTF.h"
+#include "include/Wchar_conv/Wchar_conv.h"
+#include "include/Wchar_conv/Wchar_conv.cpp"
+#include "include/timercpp.h"
 #include <iostream>
 
 	using namespace std;
@@ -30,13 +30,6 @@
 	unsigned short maxStvar = 0;
 	unsigned short maxSvar = 0;
 
-
-	void czekaj(int iMilisekundy)
-	{
-		clock_t koniec = clock() + iMilisekundy * CLOCKS_PER_SEC / 1000.0;
-		while (clock() < koniec) continue;
-
-	}
 
 	DWORD WINAPI MainThread(LPVOID lpParam)
 	{
@@ -87,8 +80,6 @@
 	{
 		//AllocConsole();
 		//freopen("CONOUT$", "w", stdout);
-
-		// int msgbox = MessageBox(0, "PluginStart", "Debug", MB_OK);
 
 		loadconfigfile();
 		cout << serialport << endl;
