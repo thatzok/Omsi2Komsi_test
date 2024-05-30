@@ -40,6 +40,6 @@ bus_dooraft
 1
 Pause
 
-[omsi2komsi]
+[OMSI2KOMSI]
 COMx=22
 BAUD_RATE=115200

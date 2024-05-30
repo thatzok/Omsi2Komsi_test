@@ -55,13 +55,20 @@
 	}
 
 
+	void czekaj(int iMilisekundy)
+	{
+		clock_t koniec = clock() + iMilisekundy * CLOCKS_PER_SEC / 1000.0;
+		while (clock() < koniec) continue;
+
+	}
+
 	void loadconfigfile() {
 		CSimpleIniA ini;
 		ini.SetUnicode();
 		SI_Error rc = ini.LoadFile(".\\plugins\\Omsi2Komsi.opl");
 		if (rc >= 0) {
-			serialport = atoi(ini.GetValue("omsi2komsi", "COMx"));
-			baudrate = atoi(ini.GetValue("omsikomsi", "BAUD_RATE"));
+			serialport = atoi(ini.GetValue("OMSI2KOMSI", "COMx"));
+			baudrate = atoi(ini.GetValue("OMSI2KOMSI", "BAUD_RATE"));
 		}
 
 
@@ -80,6 +87,8 @@
 	{
 		//AllocConsole();
 		//freopen("CONOUT$", "w", stdout);
+
+		// int msgbox = MessageBox(0, "PluginStart", "Debug", MB_OK);
 
 		loadconfigfile();
 		cout << serialport << endl;
