@@ -1,4 +1,10 @@
-# Omsi2Komsi
+# Omsi2Komsi-Test in C++
+
+## This repository is incomplete and not finished and not supported. DON'T USE THIS!
+
+## use https://github.com/thatzok/Omsi2Komsi instead
+
+
 Based on a DLL framework from BBI2 (Bus Board Interface 2)<br>
 
 This is Work in Progress.
